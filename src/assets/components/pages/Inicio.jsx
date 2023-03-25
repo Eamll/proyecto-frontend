@@ -1,11 +1,12 @@
 import React from 'react'
-import CreateProduct from './CreateProduct'
+import { CrearCatalogo } from './CrearCatalogo'
+
+
 
 export const Inicio = () => {
     return (
         <div>
-            <CreateProduct />
-
+            <CrearCatalogo />
         </div>
     )
 }

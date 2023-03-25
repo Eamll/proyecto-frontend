@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import './FadeInOut.css';
 
-const Message = ({ resultado, setResultado }) => {
+export const Message = ({ resultado, setResultado }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -22,4 +22,3 @@ const Message = ({ resultado, setResultado }) => {
     );
 };
 
-export default Message;
