@@ -6,8 +6,8 @@ export const Nav = () => {
         <nav className="nav">
             <ul>
                 <li><NavLink to="/inicio">Crear Catalogo</NavLink></li>
-                <li><NavLink to="/productos">Catalogos</NavLink></li>
-                <li><NavLink to="/inventario">Inventario</NavLink></li>
+                <li><NavLink to="/catalogos">Catalogos</NavLink></li>
+                {/* <li><NavLink to="/inventario">Inventario</NavLink></li> */}
 
             </ul>
         </nav>
