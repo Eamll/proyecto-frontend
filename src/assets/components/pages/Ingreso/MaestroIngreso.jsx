@@ -34,6 +34,14 @@ export const MaestroIngreso = () => {
         );
     };
 
+    const updateCartItem = (itemId, field, value) => {
+        setCart((prevCart) => {
+            return prevCart.map((item) =>
+                item.id === itemId ? { ...item, [field]: value } : item
+            );
+        });
+    };
+
     const {
         formulario,
         // enviado,
@@ -100,7 +108,7 @@ export const MaestroIngreso = () => {
 
                 <h2>Items in Cart</h2>
                 {cart.map((item) => (
-                    <CartItem key={item.id} catalogo={item} />
+                    <CartItem key={item.id} catalogo={item} updateCartItem={updateCartItem} />
                 ))}
 
                 <form onSubmit={handleSubmit}>
