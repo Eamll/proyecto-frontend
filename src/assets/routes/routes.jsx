@@ -8,10 +8,15 @@ import { CrearInventario } from '../components/pages/Inventario/CrearInventario'
 import { Sidebar } from '../components/layouts/Sidebar'
 import { CrearIngreso } from '../components/pages/Ingreso/CrearIngreso'
 import { LoginComponent } from '../components/pages/Login'
+import PrivateRoute from './PrivateRoute'
+// import ConditionalRoute from './ConditionalRoute'
 
 const ContentWithSidebar = () => {
     const location = useLocation();
     const [searchQuery, setSearchQuery] = useState("");
+    const isAuthenticated = !!localStorage.getItem('token');
+
+
     const handleSearchQueryChange = (event) => {
         setSearchQuery(event.target.value);
     }
@@ -25,16 +30,18 @@ const ContentWithSidebar = () => {
             )}
             <section id="content" className="content">
                 <Routes>
-                    <Route path="/" element={<Inicio />} />
-                    <Route path="/login" element={<LoginComponent />} />
-                    <Route path="/inicio" element={<Inicio />} />
-                    <Route path="/catalogos" element={<ListaCatalogos searchQuery={searchQuery} />} />
+
+                    <Route path="/" element={isAuthenticated ? <Inicio /> : <LoginComponent />} />
+                    <Route path="/login" element={isAuthenticated ? <Inicio /> : <LoginComponent />} />
+                    <Route path="/inicio" element={isAuthenticated ? <Inicio /> : <LoginComponent />} />
+                    <Route path="/catalogos" element={isAuthenticated ? <ListaCatalogos searchQuery={searchQuery} /> : <LoginComponent />} />
                     <Route path="/inventario" element={<CrearInventario />} />
                     <Route path="/editar-catalogo/:id" element={<EditarCatalogo />} />
                     <Route path="/crear-ingreso" element={<CrearIngreso />} />
 
                     <Route path="*" element={<div className="jumbo">Error 404</div>}
                     />
+
                 </Routes>
             </section>
         </>
