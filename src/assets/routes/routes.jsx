@@ -12,6 +12,7 @@ import PrivateRoute from './PrivateRoute'
 import { isTokenExpired } from '../helpers/auth'
 import { CarritoIngreso } from '../components/pages/Ingreso/CarritoIngreso'
 import { CrearIngreso } from '../components/pages/Ingreso/CrearIngreso'
+import { MaestroIngreso } from '../components/pages/Ingreso/MaestroIngreso'
 // import ConditionalRoute from './ConditionalRoute'
 
 const ContentWithSidebar = () => {
@@ -46,7 +47,7 @@ const ContentWithSidebar = () => {
                     <Route path="/catalogos" element={<PrivateRoute><ListaCatalogos searchQuery={searchQuery} /> </PrivateRoute>} />
                     <Route path="/inventario" element={<PrivateRoute><CrearInventario /></PrivateRoute>} />
                     <Route path="/editar-catalogo/:id" element={<PrivateRoute><EditarCatalogo /></PrivateRoute>} />
-                    <Route path="/crear-ingreso" element={<PrivateRoute><CrearIngreso searchQuery={searchQuery} /></PrivateRoute>} />
+                    <Route path="/crear-ingreso" element={<PrivateRoute><MaestroIngreso searchQuery={searchQuery} /></PrivateRoute>} />
 
                     <Route path="*" element={<div className="jumbo">Error 404</div>}
                     />
