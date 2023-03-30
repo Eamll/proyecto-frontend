@@ -9,26 +9,40 @@ export const CartItem = ({ catalogo, updateCartItem }) => {
 
     return (
         <div className="cart-item">
-            <h4>{catalogo.nombre}</h4>
-            <label htmlFor="cantidad">Cantidad:</label>
-            <input
-                type="number"
-                name="cantidad"
-                value={catalogo.cantidad || ""}
-                onChange={handleInputChange}
-                required
-            />
-            <br />
+            <div><h4>{catalogo.nombre}</h4></div>
+            <div class="div_flex_centro">
+                <div class="alinea_derecha">
+                    <div>
+                        <label htmlFor="cantidad">Cantidad:</label>
+                    </div>
+                    <div>
+                        <label htmlFor="costo_unitario">Costo Unitario:</label>
+                    </div>
+                </div>
 
-            <label htmlFor="costo_unitario">Costo Unitario:</label>
-            <input
-                type="number"
-                name="costo_unitario"
-                value={catalogo.costo_unitario || ""}
-                onChange={handleInputChange}
-                required
-            />
-            <br />
+
+
+                <div>
+                    <div>
+                        <input
+                            type="number"
+                            name="cantidad"
+                            value={catalogo.cantidad || ""}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="number"
+                            name="cantidad"
+                            value={formulario.cantidad}
+                            onChange={cambiado}
+                            required
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
