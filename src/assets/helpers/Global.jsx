@@ -27,3 +27,7 @@ export const GlobalIngreso = {
 export const GlobalRutaSegura = {
     url: "http://localhost:3000/api/ruta-segura/",
 }
+
+export const GlobalMaestroIngreso = {
+    url: "http://localhost:3000/api/transaction-ingreso/",
+}

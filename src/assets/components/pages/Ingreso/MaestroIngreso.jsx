@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { PeticionAjax } from "../../../helpers/AjaxPetition";
-import { GlobalCatalogo } from "../../../helpers/Global";
+import { getUserIdFromToken } from "../../../helpers/auth";
+import { GlobalCatalogo, GlobalMaestroIngreso } from "../../../helpers/Global";
 import { useForm } from "../../../hooks/useForm";
 import { CartItem } from "./CartItem";
 import { ListadoAIngresar } from "./ListadoAIngresar";
 
 export const MaestroIngreso = () => {
     const [catalogos, setCatalogos] = useState([]); // Your initial catalogos data
+
     useEffect(() => {
         fetchCatalogos();
     }, []);
@@ -38,6 +40,10 @@ export const MaestroIngreso = () => {
         cambiado,
         setFormulario,
     } = useForm({
+        id_concepto_ingreso: "",
+        id_almacen: "",
+        id_compra: "",
+
         costo_transporte: "",
         costo_carga: "",
         costo_almacenes: "",
@@ -48,14 +54,20 @@ export const MaestroIngreso = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const userId = getUserIdFromToken().toString();
+        console.log('User ID from token:', userId);
+        const formDataWithId = {
+            ...formulario,
+            id_personal: userId,
+        };
 
         // Combine form data and cart data
         const dataToSend = {
-            form: formulario,
+            form: formDataWithId,
             cart: cart,
         };
-
-        const { datos } = await PeticionAjax(GlobalCatalogo.url + "crear", "POST", dataToSend);
+        console.log(JSON.stringify(dataToSend));
+        const { datos } = await PeticionAjax(GlobalMaestroIngreso.url + "crear", "POST", dataToSend);
         if (datos.status === "success") {
 
             console.log(datos.message);
@@ -67,6 +79,9 @@ export const MaestroIngreso = () => {
         }
 
         setFormulario({
+            id_concepto_ingreso: "",
+            id_almacen: "",
+            id_compra: "",
             costo_transporte: "",
             costo_carga: "",
             costo_almacenes: "",
@@ -90,11 +105,18 @@ export const MaestroIngreso = () => {
 
                 <form onSubmit={handleSubmit}>
                     {/* The rest of the form inputs and submit button */}
-
+                    <input
+                        type="number"
+                        name="id_concepto_ingreso"
+                        value={formulario.id_concepto_ingreso}
+                        onChange={cambiado}
+                        placeholder="id_concepto_ingreso"
+                        required
+                    />
                     <input
                         type="number"
                         name="id_almacen"
-                        value={1}
+                        value={formulario.id_almacen}
                         onChange={cambiado}
                         placeholder="id_almacen"
                         required
@@ -102,12 +124,12 @@ export const MaestroIngreso = () => {
                     <input
                         type="number"
                         name="id_compra"
-                        value={1}
+                        value={formulario.id_compra}
                         onChange={cambiado}
                         placeholder="id_compra"
                         required
                     />
-
+                    <br />
                     <input
                         type="number"
                         name="costo_transporte"
