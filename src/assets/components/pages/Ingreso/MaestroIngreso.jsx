@@ -34,7 +34,7 @@ export const MaestroIngreso = () => {
 
     const {
         formulario,
-        enviado,
+        // enviado,
         cambiado,
         setFormulario,
     } = useForm({
@@ -45,9 +45,41 @@ export const MaestroIngreso = () => {
         observaciones: "",
     });
 
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Combine form data and cart data
+        const dataToSend = {
+            form: formulario,
+            cart: cart,
+        };
+
+        const { datos } = await PeticionAjax(GlobalCatalogo.url + "crear", "POST", dataToSend);
+        if (datos.status === "success") {
+
+            console.log(datos.message);
+            // setResultado("Guardado");
+
+        } else {
+            // setResultado("Error");
+            console.error("Error submitting data:", datos.message);
+        }
+
+        setFormulario({
+            costo_transporte: "",
+            costo_carga: "",
+            costo_almacenes: "",
+            otros_costos: "",
+            observaciones: "",
+        });
+    };
+
     return (
         <>
             <div className="maestro-ingreso">
+
+                <br />
                 <h2>Available Catalog Items</h2>
                 <ListadoAIngresar catalogos={catalogos} onAddToCart={handleAddToCart} />
 
@@ -56,8 +88,26 @@ export const MaestroIngreso = () => {
                     <CartItem key={item.id} catalogo={item} />
                 ))}
 
-                <form onSubmit={enviado}>
+                <form onSubmit={handleSubmit}>
                     {/* The rest of the form inputs and submit button */}
+
+                    <input
+                        type="number"
+                        name="id_almacen"
+                        value={1}
+                        onChange={cambiado}
+                        placeholder="id_almacen"
+                        required
+                    />
+                    <input
+                        type="number"
+                        name="id_compra"
+                        value={1}
+                        onChange={cambiado}
+                        placeholder="id_compra"
+                        required
+                    />
+
                     <input
                         type="number"
                         name="costo_transporte"
