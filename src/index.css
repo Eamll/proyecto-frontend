@@ -12,6 +12,39 @@
   opacity: 0;
 }
 
+/*---*/
+
+
+/*-*/
+/* Snackbar.css */
+.snackbar {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.snackbar.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.snackbar.success {
+  background-color: green;
+}
+
+.snackbar.error {
+  background-color: red;
+}
+
 /*---------------------*/
 input[type="text"][name="search_catalogo"] {
   width: 100%;

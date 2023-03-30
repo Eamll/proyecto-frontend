@@ -12,9 +12,6 @@ export const ListaCatalogos = ({ searchQuery }) => {
         fetchCatalogos();
     }, []);
 
-    // const handleSearchQueryChange = (event) => {
-    //     setSearchQuery(event.target.value);
-    // };
 
     const fetchCatalogos = async () => {
 
@@ -28,9 +25,11 @@ export const ListaCatalogos = ({ searchQuery }) => {
 
     const filteredCatalogos = catalogos.filter((catalogo) => {
         if (!searchQuery) return true; // If searchQuery is not defined or empty, return true to show all catalogos
-        const catalogoNombre = catalogo.nombre.toLowerCase();
         const query = searchQuery.toLowerCase();
-        return catalogoNombre.includes(query);
+        const catalogoNombre = catalogo.nombre.toLowerCase();
+        const catalogoId = catalogo.codigo_interno.toString();
+        return catalogoNombre.includes(query) ||
+            catalogoId.includes(query)
     });
 
     return (
@@ -43,12 +42,3 @@ export const ListaCatalogos = ({ searchQuery }) => {
         </>
     );
 };
-
-// export const searchQueryState = {
-//     searchQuery: "",
-//     setSearchQuery: () => { },
-// };
-
-// export const handleSearchQueryChangeState = {
-//     handleSearchQueryChange: () => { },
-// };

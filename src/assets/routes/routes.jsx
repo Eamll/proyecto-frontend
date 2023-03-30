@@ -6,23 +6,32 @@ import { ListaCatalogos } from '../components/pages/ListaCatalogos'
 import { EditarCatalogo } from '../components/pages/EditarCatalogo'
 import { CrearInventario } from '../components/pages/Inventario/CrearInventario'
 import { Sidebar } from '../components/layouts/Sidebar'
-import { CrearIngreso } from '../components/pages/Ingreso/CrearIngreso'
+import { Ingreso } from '../components/pages/Ingreso/Ingreso'
 import { LoginComponent } from '../components/pages/Login'
 import PrivateRoute from './PrivateRoute'
+import { isTokenExpired } from '../helpers/auth'
+import { CarritoIngreso } from '../components/pages/Ingreso/CarritoIngreso'
+import { CrearIngreso } from '../components/pages/Ingreso/CrearIngreso'
 // import ConditionalRoute from './ConditionalRoute'
 
 const ContentWithSidebar = () => {
     const location = useLocation();
     const [searchQuery, setSearchQuery] = useState("");
-    const isAuthenticated = !!localStorage.getItem('token');
+    const is_token_expired = isTokenExpired();
 
 
     const handleSearchQueryChange = (event) => {
         setSearchQuery(event.target.value);
     }
+
+    if (is_token_expired && location.pathname !== "/login") {
+        return <Navigate to="/login" />;
+    }
+
+
     return (
         <>
-            {location.pathname === "/catalogos" && (
+            {location.pathname === "/catalogos" || location.pathname === "/crear-ingreso" && (
                 <Sidebar
                     searchQuery={searchQuery}
                     handleSearchQueryChange={handleSearchQueryChange}
@@ -31,13 +40,13 @@ const ContentWithSidebar = () => {
             <section id="content" className="content">
                 <Routes>
 
-                    <Route path="/" element={isAuthenticated ? <Inicio /> : <LoginComponent />} />
-                    <Route path="/login" element={isAuthenticated ? <Inicio /> : <LoginComponent />} />
-                    <Route path="/inicio" element={isAuthenticated ? <Inicio /> : <LoginComponent />} />
-                    <Route path="/catalogos" element={isAuthenticated ? <ListaCatalogos searchQuery={searchQuery} /> : <LoginComponent />} />
-                    <Route path="/inventario" element={<CrearInventario />} />
-                    <Route path="/editar-catalogo/:id" element={<EditarCatalogo />} />
-                    <Route path="/crear-ingreso" element={<CrearIngreso />} />
+                    <Route path="/" element={<PrivateRoute><Inicio /></PrivateRoute>} />
+                    <Route path="/login" element={<LoginComponent />} />
+                    <Route path="/inicio" element={<PrivateRoute><Inicio /></PrivateRoute>} />
+                    <Route path="/catalogos" element={<PrivateRoute><ListaCatalogos searchQuery={searchQuery} /> </PrivateRoute>} />
+                    <Route path="/inventario" element={<PrivateRoute><CrearInventario /></PrivateRoute>} />
+                    <Route path="/editar-catalogo/:id" element={<PrivateRoute><EditarCatalogo /></PrivateRoute>} />
+                    <Route path="/crear-ingreso" element={<PrivateRoute><CrearIngreso searchQuery={searchQuery} /></PrivateRoute>} />
 
                     <Route path="*" element={<div className="jumbo">Error 404</div>}
                     />
