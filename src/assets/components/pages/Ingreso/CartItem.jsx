@@ -10,27 +10,39 @@ export const CartItem = ({ catalogo }) => {
 
     return (
         <div className="cart-item">
-            <h4>{catalogo.nombre}</h4>
+            <div><h4>{catalogo.nombre}</h4></div>
             <form onSubmit={enviado}>
-                <label htmlFor="cantidad">Cantidad:</label>
-                <input
-                    type="number"
-                    name="cantidad"
-                    value={formulario.cantidad}
-                    onChange={cambiado}
-                    required
-                />
-                <br />
+                <div class="div_flex_centro">
+                    <div class="alinea_derecha">
+                        <div>
+                            <label htmlFor="cantidad">Cantidad:</label>
+                        </div>
+                        <div>
+                            <label htmlFor="costo_unitario">Costo Unitario:</label>
 
-                <label htmlFor="costo_unitario">Costo Unitario:</label>
-                <input
-                    type="number"
-                    name="costo_unitario"
-                    value={formulario.costo_unitario}
-                    onChange={cambiado}
-                    required
-                />
-                <br />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <input
+                                type="number"
+                                name="costo_unitario"
+                                value={formulario.costo_unitario}
+                                onChange={cambiado}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <input
+                                type="number"
+                                name="cantidad"
+                                value={formulario.cantidad}
+                                onChange={cambiado}
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     );
