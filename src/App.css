@@ -4,3 +4,33 @@
   padding: 2rem;
   text-align: center;
 }
+
+.div_flex_centro{
+  display: inline-flex;
+  align-items: center;
+}
+
+.div_centro{
+  text-align: center;
+}
+
+.alinea_derecha{
+  text-align: end;
+}
+
+.maestro-ingreso{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.articulo {
+  flex-basis: calc(50%);
+  box-sizing: border-box;
+  width: 100vh;
+  min-width: 68.25vh;
+}
+
+.div_full_width{
+  width: 100%;
+}

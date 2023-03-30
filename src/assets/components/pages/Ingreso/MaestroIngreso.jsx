@@ -100,13 +100,12 @@ export const MaestroIngreso = () => {
 
     return (
         <>
-            <div className="maestro-ingreso">
-
-                <br />
-                <h2>Available Catalog Items</h2>
-                <ListadoAIngresar catalogos={catalogos} onAddToCart={handleAddToCart} />
-
-                <h2>Items in Cart</h2>
+        <div class="div_full_width"><h2>Artículos disponibles en el catálogo</h2></div>
+            <div className="maestro-ingreso" class="maestro-ingreso">
+            <ListadoAIngresar catalogos={catalogos} onAddToCart={handleAddToCart} />
+            </div>
+            <div class="div_full_width">
+                <h2>Artículos del Carrito</h2>
                 {cart.map((item) => (
                     <CartItem key={item.id} catalogo={item} updateCartItem={updateCartItem} />
                 ))}
