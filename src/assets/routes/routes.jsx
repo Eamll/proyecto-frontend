@@ -32,7 +32,7 @@ const ContentWithSidebar = () => {
 
     return (
         <>
-            {location.pathname === "/catalogos" || location.pathname === "/crear-ingreso" && (
+            {(location.pathname === "/catalogos" || location.pathname === "/crear-ingreso") && (
                 <Sidebar
                     searchQuery={searchQuery}
                     handleSearchQueryChange={handleSearchQueryChange}

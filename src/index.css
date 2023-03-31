@@ -18,10 +18,10 @@
 }
 
 .articulo {
-  flex-basis: calc(50%);
+  flex-basis: calc(45%);
   box-sizing: border-box;
   width: 100vh;
-  min-width: 68.25vh;
+  min-width: 50vh;
 }
 
 .div_full_width {
@@ -200,10 +200,8 @@ body {
   border-radius: 10px;
   box-shadow: 0px 0px 6px #ddd;
   margin: 20px;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  padding-left: 25px;
-  padding-right: 25px;
+
+
 }
 
 .cart-item {
@@ -317,9 +315,7 @@ input[type="button"] {
     align-items: center;
   }
 
-  .product-item {
-    width: 80%;
-  }
+
 }
 
 .no-encontrado {

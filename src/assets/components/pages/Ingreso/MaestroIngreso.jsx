@@ -100,11 +100,11 @@ export const MaestroIngreso = () => {
 
     return (
         <>
-        <div class="div_full_width"><h2>Artículos disponibles en el catálogo</h2></div>
-            <div className="maestro-ingreso" class="maestro-ingreso">
-            <ListadoAIngresar catalogos={catalogos} onAddToCart={handleAddToCart} />
+            <div className="div_full_width"><h2>Artículos disponibles en el catálogo</h2></div>
+            <div className="maestro-ingreso">
+                <ListadoAIngresar catalogos={catalogos} onAddToCart={handleAddToCart} />
             </div>
-            <div class="div_full_width">
+            <div className="div_full_width">
                 <h2>Artículos del Carrito</h2>
                 {cart.map((item) => (
                     <CartItem key={item.id} catalogo={item} updateCartItem={updateCartItem} />
@@ -134,7 +134,7 @@ export const MaestroIngreso = () => {
                         value={formulario.id_compra}
                         onChange={cambiado}
                         placeholder="id_compra"
-                        required
+
                     />
                     <br />
                     <input
