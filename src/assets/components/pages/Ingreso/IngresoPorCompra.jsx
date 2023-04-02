@@ -7,7 +7,7 @@ import { ListadoCompras } from "./ListadoCompras";
 export const IngresoPorCompra = ({ searchQuery }) => {
     const [compras, setCompras] = useState([]);
     const [cargando, setCargando] = useState(true);
-
+    const [resultado, setResultado] = useState("No enviado");
 
     useEffect(() => {
         fetchCompras();
@@ -20,6 +20,7 @@ export const IngresoPorCompra = ({ searchQuery }) => {
         if (datos.status === "success") {
             setCompras(datos.compras)
         }
+        setResultado(datos.status)
         setCargando(false);
     };
 

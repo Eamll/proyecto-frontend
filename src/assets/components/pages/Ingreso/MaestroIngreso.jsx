@@ -50,8 +50,6 @@ export const MaestroIngreso = () => {
     } = useForm({
         id_concepto_ingreso: "",
         id_almacen: "",
-
-
         costo_transporte: "",
         costo_carga: "",
         costo_almacenes: "",
