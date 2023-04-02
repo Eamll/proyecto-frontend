@@ -6,9 +6,9 @@ import { useForm } from "../../../hooks/useForm";
 import { CartItem } from "./CartItem";
 import { ListadoAIngresar } from "./ListadoAIngresar";
 
-export const MaestroIngreso = () => {
+export const MaestroIngreso = ({ searchQuery }) => {
     const [catalogos, setCatalogos] = useState([]); // Your initial catalogos data
-
+    const [cargando, setCargando] = useState(true);
     useEffect(() => {
         fetchCatalogos();
     }, []);
@@ -20,8 +20,16 @@ export const MaestroIngreso = () => {
         if (datos.status === "success") {
             setCatalogos(datos.catalogos)
         }
-        // setCargando(false);
+        setCargando(false);
     };
+    const filteredCatalogos = catalogos.filter((catalogo) => {
+        if (!searchQuery) return true; // If searchQuery is not defined or empty, return true to show all catalogos
+        const query = searchQuery.toLowerCase();
+        const catalogoNombre = catalogo.nombre.toLowerCase();
+        const catalogoId = catalogo.codigo_interno.toString();
+        return catalogoNombre.includes(query) ||
+            catalogoId.includes(query)
+    });
 
 
 
@@ -99,87 +107,90 @@ export const MaestroIngreso = () => {
     return (
         <>
             <div className="div_full_width"><h2>Artículos disponibles en el catálogo</h2></div>
-            <div className="maestro-ingreso">
-                <ListadoAIngresar catalogos={catalogos} onAddToCart={handleAddToCart} />
-            </div>
-            <div className="div_full_width">
-                <h2>Artículos del Carrito</h2>
-                {cart.map((item) => (
-                    <CartItem key={item.id} catalogo={item} updateCartItem={updateCartItem} />
-                ))}
+            {cargando ? "Cargando" :
+                filteredCatalogos.length >= 1 ?
+                    (<><div className="maestro-ingreso">
+                        <ListadoAIngresar catalogos={filteredCatalogos} onAddToCart={handleAddToCart} />
+                    </div>
+                        <div className="div_full_width">
+                            <h2>Artículos del Carrito</h2>
+                            {cart.map((item) => (
+                                <CartItem key={item.id} catalogo={item} updateCartItem={updateCartItem} />
+                            ))}
 
-                <form onSubmit={handleSubmit}>
-                    {/* The rest of the form inputs and submit button */}
-                    <input
-                        type="number"
-                        name="id_concepto_ingreso"
-                        value={formulario.id_concepto_ingreso}
-                        onChange={cambiado}
-                        placeholder="id_concepto_ingreso"
-                        required
-                    />
-                    <input
-                        type="number"
-                        name="id_almacen"
-                        value={formulario.id_almacen}
-                        onChange={cambiado}
-                        placeholder="id_almacen"
-                        required
-                    />
+                            <form onSubmit={handleSubmit}>
+                                {/* The rest of the form inputs and submit button */}
+                                <input
+                                    type="number"
+                                    name="id_concepto_ingreso"
+                                    value={formulario.id_concepto_ingreso}
+                                    onChange={cambiado}
+                                    placeholder="id_concepto_ingreso"
+                                    required
+                                />
+                                <input
+                                    type="number"
+                                    name="id_almacen"
+                                    value={formulario.id_almacen}
+                                    onChange={cambiado}
+                                    placeholder="id_almacen"
+                                    required
+                                />
 
-                    <br />
-                    <input
-                        type="number"
-                        name="costo_transporte"
-                        value={formulario.costo_transporte}
-                        onChange={cambiado}
-                        placeholder="Costo Transporte"
-                        required
-                    />
-                    <br />
+                                <br />
+                                <input
+                                    type="number"
+                                    name="costo_transporte"
+                                    value={formulario.costo_transporte}
+                                    onChange={cambiado}
+                                    placeholder="Costo Transporte"
+                                    required
+                                />
+                                <br />
 
-                    <input
-                        type="number"
-                        name="costo_carga"
-                        value={formulario.costo_carga}
-                        onChange={cambiado}
-                        placeholder="Costo Carga"
-                        required
-                    />
-                    <br />
+                                <input
+                                    type="number"
+                                    name="costo_carga"
+                                    value={formulario.costo_carga}
+                                    onChange={cambiado}
+                                    placeholder="Costo Carga"
+                                    required
+                                />
+                                <br />
 
-                    <input
-                        type="number"
-                        name="costo_almacenes"
-                        value={formulario.costo_almacenes}
-                        onChange={cambiado}
-                        placeholder="Costo Almacenes"
-                        required
-                    />
-                    <br />
+                                <input
+                                    type="number"
+                                    name="costo_almacenes"
+                                    value={formulario.costo_almacenes}
+                                    onChange={cambiado}
+                                    placeholder="Costo Almacenes"
+                                    required
+                                />
+                                <br />
 
-                    <input
-                        type="number"
-                        name="otros_costos"
-                        value={formulario.otros_costos}
-                        onChange={cambiado}
-                        placeholder="Otros Costos"
-                        required
-                    />
-                    <br />
+                                <input
+                                    type="number"
+                                    name="otros_costos"
+                                    value={formulario.otros_costos}
+                                    onChange={cambiado}
+                                    placeholder="Otros Costos"
+                                    required
+                                />
+                                <br />
 
-                    <textarea
-                        name="observaciones"
-                        value={formulario.observaciones}
-                        onChange={cambiado}
-                        placeholder="Observaciones"
-                        required
-                    />
-                    <br />
-
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+                                <textarea
+                                    name="observaciones"
+                                    value={formulario.observaciones}
+                                    onChange={cambiado}
+                                    placeholder="Observaciones"
+                                    required
+                                />
+                                <br />
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div></>) :
+                    <h1>No hay productos</h1>
+            }
         </>
     );
 };

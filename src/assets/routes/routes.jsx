@@ -4,14 +4,11 @@ import { Inicio } from '../components/pages/Inicio'
 import { Header, Nav, Footer } from '../components/Layouts/layouts'
 import { ListaCatalogos } from '../components/pages/ListaCatalogos'
 import { EditarCatalogo } from '../components/pages/EditarCatalogo'
-import { CrearInventario } from '../components/pages/Inventario/CrearInventario'
+
 import { Sidebar } from '../components/layouts/Sidebar'
-import { Ingreso } from '../components/pages/Ingreso/Ingreso'
 import { LoginComponent } from '../components/pages/Login'
 import PrivateRoute from './PrivateRoute'
 import { isTokenExpired } from '../helpers/auth'
-import { CarritoIngreso } from '../components/pages/Ingreso/CarritoIngreso'
-import { CrearIngreso } from '../components/pages/Ingreso/CrearIngreso'
 import { MaestroIngreso } from '../components/pages/Ingreso/MaestroIngreso'
 import { IngresoPorCompra } from '../components/pages/Ingreso/IngresoPorCompra'
 import MenuIngreso from '../components/pages/Ingreso/MenuIngreso'
@@ -48,7 +45,7 @@ const ContentWithSidebar = () => {
                     <Route path="/login" element={<LoginComponent />} />
                     <Route path="/inicio" element={<PrivateRoute><Inicio /></PrivateRoute>} />
                     <Route path="/catalogos" element={<PrivateRoute><ListaCatalogos searchQuery={searchQuery} /> </PrivateRoute>} />
-                    <Route path="/inventario" element={<PrivateRoute><CrearInventario /></PrivateRoute>} />
+
                     <Route path="/editar-catalogo/:id" element={<PrivateRoute><EditarCatalogo /></PrivateRoute>} />
                     <Route path="/crear-ingreso" element={<PrivateRoute><MaestroIngreso searchQuery={searchQuery} /></PrivateRoute>} />
                     <Route path="/ingreso-compra" element={<PrivateRoute><IngresoPorCompra searchQuery={searchQuery} /></PrivateRoute>} />

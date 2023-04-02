@@ -37,7 +37,8 @@ export const ListaCatalogos = ({ searchQuery }) => {
             {cargando ? "Cargando" :
                 filteredCatalogos.length >= 1 ?
                     <Listado catalogos={filteredCatalogos} setCatalogos={setCatalogos} /> :
-                    <h1>No hay productos</h1>}
+                    <h1>No hay productos</h1>
+            }
 
         </>
     );
