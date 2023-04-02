@@ -50,7 +50,7 @@ export const MaestroIngreso = () => {
     } = useForm({
         id_concepto_ingreso: "",
         id_almacen: "",
-        id_compra: "",
+
 
         costo_transporte: "",
         costo_carga: "",
@@ -89,7 +89,7 @@ export const MaestroIngreso = () => {
         setFormulario({
             id_concepto_ingreso: "",
             id_almacen: "",
-            id_compra: "",
+
             costo_transporte: "",
             costo_carga: "",
             costo_almacenes: "",
@@ -128,14 +128,7 @@ export const MaestroIngreso = () => {
                         placeholder="id_almacen"
                         required
                     />
-                    <input
-                        type="number"
-                        name="id_compra"
-                        value={formulario.id_compra}
-                        onChange={cambiado}
-                        placeholder="id_compra"
 
-                    />
                     <br />
                     <input
                         type="number"

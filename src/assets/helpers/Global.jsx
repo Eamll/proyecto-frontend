@@ -31,3 +31,10 @@ export const GlobalRutaSegura = {
 export const GlobalMaestroIngreso = {
     url: "http://localhost:3000/api/transaction-ingreso/",
 }
+
+export const GlobalCompra = {
+    url: "http://localhost:3000/api/compra/",
+}
+export const GlobalDetalleCompra = {
+    url: "http://localhost:3000/api/detalle_compra/",
+}
