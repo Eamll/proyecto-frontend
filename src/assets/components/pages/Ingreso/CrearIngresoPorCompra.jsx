@@ -135,6 +135,8 @@ export const CrearIngresoPorCompra = () => {
                     <br />
                     <button type="submit">Submit</button>
                 </form>
+
+
             ) : (
                 resultado === "error" && (
                     <p>No existe un detalle para esta compra</p>

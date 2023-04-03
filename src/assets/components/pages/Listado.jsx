@@ -24,7 +24,6 @@ export const Listado = ({ catalogos, setCatalogos }) => {
                 throw new Error(datos.message); // throw error if status is not "success"
             }
         } catch (error) {
-            // alert(error.message); // Show error message
             showSnackbar('error', error.message);
             setCatalogos((prevCatalogos) =>
                 prevCatalogos.map((catalogo) => {

@@ -7,8 +7,9 @@ import { CartItem } from "./CartItem";
 import { ListadoAIngresar } from "./ListadoAIngresar";
 
 export const MaestroIngreso = ({ searchQuery }) => {
-    const [catalogos, setCatalogos] = useState([]); // Your initial catalogos data
+    const [catalogos, setCatalogos] = useState([]);
     const [cargando, setCargando] = useState(true);
+    const [resultado, setResultado] = useState("No enviado");
     useEffect(() => {
         fetchCatalogos();
     }, []);
@@ -85,10 +86,10 @@ export const MaestroIngreso = ({ searchQuery }) => {
         if (datos.status === "success") {
 
             console.log(datos.message);
-            // setResultado("Guardado");
+            setResultado("Guardado");
 
         } else {
-            // setResultado("Error");
+            setResultado("Error");
             console.error("Error submitting data:", datos.message);
         }
 
@@ -188,7 +189,15 @@ export const MaestroIngreso = ({ searchQuery }) => {
                                 <br />
                                 <button type="submit">Submit</button>
                             </form>
-                        </div></>) :
+                            {resultado !== 'No enviado' && (
+                                <>
+                                    <br />
+                                    <Message resultado={resultado} setResultado={setResultado} />
+                                </>
+                            )}
+                        </div>
+
+                    </>) :
                     <h1>No hay productos</h1>
             }
         </>

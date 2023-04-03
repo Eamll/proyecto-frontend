@@ -135,7 +135,6 @@ export const CrearCatalogo = () => {
                 <>
                     <br />
                     <Message resultado={resultado} setResultado={setResultado} />
-
                 </>
             )
             }

@@ -38,3 +38,7 @@ export const GlobalCompra = {
 export const GlobalDetalleCompra = {
     url: "http://localhost:3000/api/detalle_compra/",
 }
+
+export const GlobalMaestroSalida = {
+    url: "http://localhost:3000/api/transaction-salida/",
+}
