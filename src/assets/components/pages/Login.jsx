@@ -19,7 +19,6 @@ export const LoginComponent = () => {
 
             console.log(datos.status);
             if (datos.status === "success") {
-
                 setLoginResult(datos);
                 // Store the token in a suitable place, e.g., localStorage
                 // localStorage.setItem('token', datos.token);
@@ -45,23 +44,38 @@ export const LoginComponent = () => {
         <div>
             <h1>Login</h1>
             <form onSubmit={handleLogin}>
-                <label htmlFor="login">Login:</label>
-                <input
-                    type="text"
-                    id="login"
-                    name="login"
-                    onChange={cambiado}
-                />
-                <br />
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    onChange={cambiado}
-                />
-                <br />
-                <button type="submit">Login</button>
+                <div className='div_flex_centro'>  
+                    <div className='alinea_derecha'>
+                        <div>
+                            <label htmlFor="login">Login:</label>
+                        </div>
+                        <div>
+                            <label htmlFor="password">Password:</label>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div>
+                            <input
+                                type="text"
+                                id="login"
+                                name="login"
+                                onChange={cambiado}
+                            />
+                        </div>
+                        <div>
+                            <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            onChange={cambiado}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit">Login</button>
+                </div>
             </form>
             {loginResult && <div>
                 {loginResult.error ? (

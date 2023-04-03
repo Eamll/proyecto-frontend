@@ -26,6 +26,8 @@ export const MaestroTraspaso = ({ searchQuery }) => {
 
 
     useEffect(() => {
+        const myElement = document.getElementById('layout_pagina');
+        myElement.className = 'layout';
         setCargando(true);
 
         fetchAlmacenes();
@@ -249,13 +251,13 @@ export const MaestroTraspaso = ({ searchQuery }) => {
                         <div className="maestro-ingreso">
                             <ListadoAIngresar catalogos={filteredCatalogos} onAddToCart={handleAddToCart} />
                         </div>
-                        <div className="div_full_width">
                             <h2>Artículos del Carrito</h2>
+                        <div className="div_full_width maestro-ingreso">
                             {cart.map((item) => (
                                 <CartItem key={item.id} catalogo={item} updateCartItem={updateCartItem} handleRemoveFromCart={handleRemoveFromCart} />
                             ))}
-
-                            <form onSubmit={handleSubmit}>
+                        </div>
+                        <form onSubmit={handleSubmit}>
                                 Concepto Traspaso:<br />
                                 <select
                                     name="id_concepto_traspaso"
@@ -326,7 +328,7 @@ export const MaestroTraspaso = ({ searchQuery }) => {
                                 <br />
                                 <button type="submit">Submit</button>
                             </form>
-                        </div></>) :
+                            </>) :
                     <h1>No hay inventarios</h1>
             }
         </>

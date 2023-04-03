@@ -9,7 +9,7 @@ export const Carrito = ({ catalogo, onAddToCart }) => {
         <div className="carrito-item">
             <h4>{catalogo.nombre}</h4>
             <h4>{catalogo.codigo_interno}</h4>
-            <button onClick={handleAddToCart}>Agregar al Carrito</button>
+            <button className="boton_cart_item" onClick={handleAddToCart}>Agregar al Carrito</button>
         </div>
     );
 };

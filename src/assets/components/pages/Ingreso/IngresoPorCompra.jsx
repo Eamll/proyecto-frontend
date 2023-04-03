@@ -10,6 +10,8 @@ export const IngresoPorCompra = ({ searchQuery }) => {
     const [resultado, setResultado] = useState("No enviado");
 
     useEffect(() => {
+        const myElement = document.getElementById('layout_pagina');
+        myElement.className = 'layout';
         fetchCompras();
     }, []);
 
