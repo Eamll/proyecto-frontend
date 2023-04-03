@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PeticionAjax } from "../../../helpers/AjaxPetition";
 import { getUserIdFromToken } from "../../../helpers/auth";
-import { GlobalAlmacen, GlobalConceptoAjuste, GlobalConceptoSalida, GlobalConceptoTraspaso, GlobalInventario, GlobalMaestroAjuste, GlobalMaestroSalida } from "../../../helpers/Global";
+import { GlobalAlmacen, GlobalConceptoAjuste, GlobalInventario, GlobalMaestroAjuste } from "../../../helpers/Global";
 import { useForm } from "../../../hooks/useForm";
 
 
