@@ -4,12 +4,16 @@ import { GlobalDetalleCompra, GlobalMaestroIngreso } from '../../../helpers/Glob
 import { PeticionAjax } from '../../../helpers/AjaxPetition';
 import { useForm } from '../../../hooks/useForm';
 import { getUserIdFromToken } from '../../../helpers/auth';
+import Snackbar from '../../common/SnackBar';
 
 
 export const CrearIngresoPorCompra = () => {
+
     const params = useParams();
     const [detallesCompra, setDetallesCompra] = useState([]);
     const [resultado, setResultado] = useState("No enviado");
+    const [snackbar, setSnackbar] = useState({ show: false, type: '', message: '' });
+
     const { formulario, cambiado } = useForm({
         id_concepto_ingreso: '',
         id_almacen: '',
@@ -50,10 +54,15 @@ export const CrearIngresoPorCompra = () => {
             // console.log(datos);
             if (datos.status === "success") {
                 console.log(datos.message);
-                navigate('/ingreso-compra');
+                navigate('/ingreso-compra', { state: { snackbar: { show: true, type: 'success', message: 'Ingreso creado con éxito' } } });
             } else {
                 console.error("Error submitting data:", datos.message);
+                setSnackbar({ show: true, type: 'error', message: 'Error al crear ingreso' });
+                setTimeout(() => {
+                    setSnackbar({ show: false, type: '', message: '' });
+                }, 3000);
             }
+
         } catch (error) {
             console.error('Error submitting data:', error);
         }

@@ -3,11 +3,17 @@ import { PeticionAjax } from "../../../helpers/AjaxPetition";
 import { GlobalCompra } from "../../../helpers/Global";
 
 import { ListadoCompras } from "./ListadoCompras";
+import { useLocation } from "react-router-dom";
+import Snackbar from "../../common/SnackBar";
 
 export const IngresoPorCompra = ({ searchQuery }) => {
     const [compras, setCompras] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [resultado, setResultado] = useState("No enviado");
+
+
+    const location = useLocation();
+    const [snackbar, setSnackbar] = useState(location.state?.snackbar ?? { show: false, type: '', message: '' });
 
     useEffect(() => {
         fetchCompras();
@@ -38,6 +44,7 @@ export const IngresoPorCompra = ({ searchQuery }) => {
                 filteredCompras.length >= 1 ?
                     <ListadoCompras compras={filteredCompras} setCompras={setCompras} /> :
                     <h1>No hay productos</h1>}
+            <Snackbar show={snackbar.show} type={snackbar.type} message={snackbar.message} />
 
         </>
     );
