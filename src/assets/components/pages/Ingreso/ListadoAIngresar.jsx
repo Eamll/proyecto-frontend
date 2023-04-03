@@ -5,7 +5,6 @@ export const ListadoAIngresar = ({ catalogos, onAddToCart }) => {
 
     return (
         catalogos.map((catalogo) => {
-
             return (
                 <article className="articulo" key={catalogo.id}>
                     <Carrito

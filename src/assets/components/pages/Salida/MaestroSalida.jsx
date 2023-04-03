@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PeticionAjax } from "../../../helpers/AjaxPetition";
 import { getUserIdFromToken } from "../../../helpers/auth";
-import { GlobalInventario, GlobalMaestroSalida } from "../../../helpers/Global";
+import { GlobalAlmacen, GlobalConceptoSalida, GlobalInventario, GlobalMaestroSalida } from "../../../helpers/Global";
 import { useForm } from "../../../hooks/useForm";
 
 
@@ -10,35 +10,66 @@ import { ListadoAIngresar } from "../Ingreso/ListadoAIngresar";
 
 export const MaestroSalida = ({ searchQuery }) => {
     const [inventarios, setInventarios] = useState([]);
+    const [almacenes, setAlmacenes] = useState([]);
     const [catalogos, setCatalogos] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [resultado, setResultado] = useState("No enviado");
-    const [almacen, setAlmacen] = useState(1);
+    const [conceptosSalida, setConceptosSalida] = useState([]);
+    const [selectedAlmacen, setSelectedAlmacen] = useState(1);
+
+
+
+
+
     useEffect(() => {
+        setCargando(true);
+
+        fetchAlmacenes();
+        fetchConceptosSalida();
         fetchInventarios();
         // console.log(inventarios);
-    }, []);
+    }, [selectedAlmacen]);
 
 
     const fetchInventarios = async () => {
-
-        const { datos, cargando } = await PeticionAjax(GlobalInventario.url + 'mostrar/' + almacen, 'GET');
+        const { datos, cargando } = await PeticionAjax(GlobalInventario.url + 'mostrar/' + selectedAlmacen, 'GET');
         if (datos.status === "success") {
             setInventarios(datos.inventarios)
-
+        }
+        setCargando(false);
+    };
+    const fetchAlmacenes = async () => {
+        const { datos, cargando } = await PeticionAjax(GlobalAlmacen.url + 'mostrar', 'GET');
+        if (datos.status === "success") {
+            setAlmacenes(datos.almacenes);
+            // Set the first almacen ID as the default value for the id_almacen input
+            setFormulario((prevFormulario) => ({
+                ...prevFormulario,
+                id_almacen: datos.almacenes[0]?.id || "",
+            }));
         }
         setCargando(false);
     };
 
-
-
+    const fetchConceptosSalida = async () => {
+        const { datos, cargando } = await PeticionAjax(GlobalConceptoSalida.url + 'mostrar', 'GET');
+        if (datos.status === "success") {
+            setConceptosSalida(datos.conceptosSalida);
+            // Set the first almacen ID as the default value for the id_almacen input
+            setFormulario((prevFormulario) => ({
+                ...prevFormulario,
+                id_concepto_salida: datos.conceptosSalida[0]?.id || "",
+            }));
+        }
+        setCargando(false);
+    };
 
     const filteredCatalogos = inventarios
         .map((inventario) => {
             return {
                 ...inventario.catalogo,
-                cantidad: inventario.cantidad,
-                costo_unitario: inventario.costo_unitario
+                cantidad: inventario.cantidad_actual,
+                costo_unitario: inventario.costo_actual
             };
         })
         .filter((catalogo) => {
@@ -51,17 +82,6 @@ export const MaestroSalida = ({ searchQuery }) => {
 
 
     const [cart, setCart] = useState([]);
-
-    const handleAddToCart = (catalogo) => {
-        setCart([...cart, catalogo]);
-        setCatalogos((prevCatalogos) =>
-            prevCatalogos.filter((item) => item.id !== catalogo.id)
-        );
-        setInventarios((prevInventarios) =>
-            prevInventarios.filter((inventario) => inventario.catalogo.id !== catalogo.id)
-        );
-    };
-
     const updateCartItem = (itemId, field, value) => {
         setCart((prevCart) => {
             return prevCart.map((item) =>
@@ -69,6 +89,43 @@ export const MaestroSalida = ({ searchQuery }) => {
             );
         });
     };
+    const handleAddToCart = (catalogo) => {
+        const inventoryItem = inventarios.find(
+            (inventario) => inventario.catalogo.id === catalogo.id
+        );
+
+        const cartItem = {
+            ...catalogo,
+            cantidad: inventoryItem.cantidad_actual,
+            costo_unitario: inventoryItem.costo_actual,
+            inventoryReference: inventoryItem,
+        };
+
+        setCart([...cart, cartItem]);
+
+        setCatalogos((prevCatalogos) =>
+            prevCatalogos.filter((item) => item.id !== catalogo.id)
+        );
+
+        setInventarios((prevInventarios) =>
+            prevInventarios.filter((inventario) => inventario.catalogo.id !== catalogo.id)
+        );
+    };
+
+
+
+    const handleRemoveFromCart = (cartItem) => {
+        setCart((prevCart) => prevCart.filter((item) => item.id !== cartItem.id));
+
+        setCatalogos((prevCatalogos) => [...prevCatalogos, cartItem]);
+
+        setInventarios((prevInventarios) => [
+            ...prevInventarios,
+            cartItem.inventoryReference,
+        ]);
+    };
+
+
 
     const {
         formulario,
@@ -88,6 +145,7 @@ export const MaestroSalida = ({ searchQuery }) => {
         const formDataWithId = {
             ...formulario,
             id_personal: userId,
+            id_almacen: selectedAlmacen,
         };
 
         // Combine form data and cart data
@@ -110,14 +168,46 @@ export const MaestroSalida = ({ searchQuery }) => {
             id_almacen: "",
             observaciones: "",
         });
+
+        // Reset cart data
+        setCart([]);
+
+        // Reset selectedAlmacen to its initial value (first almacen ID)
+        setSelectedAlmacen(almacenes[0]?.id || "");
+
+        // Refetch catalogos
+        fetchInventarios();
+        window.scrollTo(0, 0);
     };
 
     return (
         <>
+            <div className="div_full_width">
+                <h2>Seleccionar almacén</h2>
+                <select
+                    name="id_almacen"
+                    value={selectedAlmacen}
+                    onChange={(e) => {
+                        setSelectedAlmacen(e.target.value);
+                        setCart([]);
+                        // setAlmacen(e.target.value);
+                    }}
+                    required
+                >
+                    {almacenes.map((almacen) => (
+                        <option key={almacen.id} value={almacen.id}>
+                            {almacen.nombre}
+                        </option>
+                    ))}
+                </select>
+
+            </div>
+
+
             <div className="div_full_width"><h2>Artículos disponibles en el inventario</h2></div>
-            {/* {console.log(filteredInventarios)} */}
+
             {cargando ? "Cargando" :
-                filteredCatalogos.length >= 1 ?
+                ((filteredCatalogos.length >= 1) || (cart.length >= 1)) ?
                     (<>
                         {/* {console.log(filteredCatalogos)} */}
                         <div className="maestro-ingreso">
@@ -126,26 +216,24 @@ export const MaestroSalida = ({ searchQuery }) => {
                         <div className="div_full_width">
                             <h2>Artículos del Carrito</h2>
                             {cart.map((item) => (
-                                <CartItem key={item.id} catalogo={item} updateCartItem={updateCartItem} />
+                                <CartItem key={item.id} catalogo={item} updateCartItem={updateCartItem} handleRemoveFromCart={handleRemoveFromCart} />
                             ))}
 
                             <form onSubmit={handleSubmit}>
-                                <input
-                                    type="number"
+                                Concepto Salida:<br />
+                                <select
                                     name="id_concepto_salida"
                                     value={formulario.id_concepto_salida}
                                     onChange={cambiado}
-                                    placeholder="id_concepto_salida"
                                     required
-                                />
-                                <input
-                                    type="number"
-                                    name="id_almacen"
-                                    value={formulario.id_almacen}
-                                    onChange={cambiado}
-                                    placeholder="id_almacen"
-                                    required
-                                />
+                                >
+                                    {conceptosSalida.map((concepto_salida) => (
+                                        <option key={concepto_salida.id} value={concepto_salida.id}>
+                                            {concepto_salida.nombre}
+                                        </option>
+                                    ))}
+                                </select>
+
                                 <br />
                                 <textarea
                                     name="observaciones"
