@@ -14,6 +14,7 @@ import { IngresoPorCompra } from '../components/pages/Ingreso/IngresoPorCompra'
 import MenuIngreso from '../components/pages/Ingreso/MenuIngreso'
 import { CrearIngresoPorCompra } from '../components/pages/Ingreso/CrearIngresoPorCompra'
 import { MaestroSalida } from '../components/pages/Salida/MaestroSalida'
+import { MaestroTraspaso } from '../components/pages/Traspaso/MaestroTraspaso'
 // import ConditionalRoute from './ConditionalRoute'
 
 const ContentWithSidebar = () => {
@@ -33,7 +34,7 @@ const ContentWithSidebar = () => {
 
     return (
         <>
-            {(location.pathname === "/catalogos" || location.pathname === "/crear-ingreso" || location.pathname === "/ingreso-compra" || location.pathname === "/crear-salida") && (
+            {(location.pathname === "/catalogos" || location.pathname === "/crear-ingreso" || location.pathname === "/ingreso-compra" || location.pathname === "/crear-salida" || location.pathname === "/crear-traspaso") && (
                 <Sidebar
                     searchQuery={searchQuery}
                     handleSearchQueryChange={handleSearchQueryChange}
@@ -53,6 +54,7 @@ const ContentWithSidebar = () => {
                     <Route path="/menu-ingreso" element={<PrivateRoute><MenuIngreso /></PrivateRoute>} />
                     <Route path="/compra/:id" element={<PrivateRoute><CrearIngresoPorCompra /></PrivateRoute>} />
                     <Route path="/crear-salida" element={<PrivateRoute><MaestroSalida searchQuery={searchQuery} /></PrivateRoute>} />
+                    <Route path="/crear-traspaso" element={<PrivateRoute><MaestroTraspaso searchQuery={searchQuery} /></PrivateRoute>} />
 
                     <Route path="*" element={<div className="jumbo">Error 404</div>}
                     />
