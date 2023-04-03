@@ -59,3 +59,12 @@ export const GlobalConceptoTraspaso = {
 export const GlobalMaestroTraspaso = {
     url: "http://localhost:3000/api/transaction-traspaso/",
 }
+
+export const GlobalConceptoAjuste = {
+    url: "http://localhost:3000/api/concepto_ajuste/",
+}
+
+
+export const GlobalMaestroAjuste = {
+    url: "http://localhost:3000/api/transaction-ajuste/",
+}
