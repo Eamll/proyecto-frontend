@@ -2,14 +2,18 @@
   display: inline-flex;
   align-items: center;
 }
+.alinea_derecha {
+  text-align: end;
+}
+
+.div_flex_horizontal{
+  display: flex;
+}
 
 .div_centro {
   text-align: center;
 }
 
-.alinea_derecha {
-  text-align: end;
-}
 
 .maestro-ingreso {
   display: flex;
@@ -107,12 +111,51 @@ body {
 .layout {
   width: 100%;
   height: auto;
-
   display: grid;
   grid-template-areas:
     "header header header header"
     "nav nav nav nav"
     "content content content lateral"
+    "footer footer footer footer"
+  ;
+  grid-template-rows: 100px 70px auto 70px;
+}
+
+.layout_menu_ingreso{
+  width: 100%;
+  height: auto;
+  
+  display: grid;
+  grid-template-areas:
+    "header header header header"
+    "nav nav nav nav"
+    "content content content content"
+    "footer footer footer footer"
+  ;
+  grid-template-rows: 100px 70px auto 70px;
+}
+
+.layout_login{
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-areas:
+    "header header header header"
+    "nav nav nav nav"
+    "content content content content"
+    "footer footer footer footer"
+  ;
+  grid-template-rows: 100px 70px auto 70px;
+}
+
+.layout_inicio{
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-areas:
+    "header header header header"
+    "nav nav nav nav"
+    "content content content content"
     "footer footer footer footer"
   ;
   grid-template-rows: 100px 70px auto 70px;
@@ -174,10 +217,10 @@ body {
 .content {
   grid-area: content;
   background: #f6f7f9;
-
+  padding: 2%;
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   flex-grow: 1;
 }
@@ -200,8 +243,7 @@ body {
   border-radius: 10px;
   box-shadow: 0px 0px 6px #ddd;
   margin: 20px;
-
-
+  padding: 5px;
 }
 
 .cart-item {
@@ -214,6 +256,26 @@ body {
   padding-bottom: 40px;
   padding-left: 25px;
   padding-right: 25px;
+}
+
+.cart-item{
+  flex-basis: calc(30%);
+  box-sizing: border-box;
+  width: 50vh;
+  min-width: 50vh;
+}
+
+.boton_cart_item{
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px;
+  margin: 4%;
+}
+
+.cart-item button{
+  text-align: center;
 }
 
 button,

@@ -6,18 +6,19 @@ import { Listado } from "./Listado";
 export const ListaCatalogos = ({ searchQuery }) => {
     const [catalogos, setCatalogos] = useState([]);
     const [cargando, setCargando] = useState(true);
-
-
+    
+    
     useEffect(() => {
+        const myElement = document.getElementById('layout_pagina');
+        myElement.className = 'layout';
         fetchCatalogos();
     }, []);
 
 
     const fetchCatalogos = async () => {
-
         const { datos, cargando } = await PeticionAjax(GlobalCatalogo.url + 'mostrar', 'GET');
         if (datos.status === "success") {
-            setCatalogos(datos.catalogos)
+            setCatalogos(datos.catalogos);
         }
         setCargando(false);
     };

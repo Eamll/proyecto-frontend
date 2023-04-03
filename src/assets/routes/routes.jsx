@@ -31,8 +31,6 @@ const ContentWithSidebar = () => {
     if (is_token_expired && location.pathname !== "/login") {
         return <Navigate to="/login" />;
     }
-
-
     return (
         <>
             {(location.pathname === "/catalogos" || location.pathname === "/crear-ingreso" || location.pathname === "/ingreso-compra" || location.pathname === "/crear-salida" || location.pathname === "/crear-traspaso" || location.pathname === "/crear-ajuste") && (

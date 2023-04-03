@@ -16,6 +16,8 @@ export const IngresoPorCompra = ({ searchQuery }) => {
     const [snackbar, setSnackbar] = useState(location.state?.snackbar ?? { show: false, type: '', message: '' });
 
     useEffect(() => {
+        const myElement = document.getElementById('layout_pagina');
+        myElement.className = 'layout';
         fetchCompras();
     }, []);
 

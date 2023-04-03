@@ -47,7 +47,7 @@ export const Listado = ({ catalogos, setCatalogos }) => {
                         <h3 className="title">
                             <Link to={'/editar-catalogo/' + catalogo.id}>{catalogo.nombre}</Link>
                         </h3>
-                        <p className="codigo">Código interno: {catalogo.codigo_interno}</p>
+                        <p className="codigo"> {catalogo.codigo_interno}</p>
                         <p className="cantidad">Cantidad Actual: 0</p>
                         <Link to={'/editar-catalogo/' + catalogo.id}>
                             <button className="edit">Editar</button>

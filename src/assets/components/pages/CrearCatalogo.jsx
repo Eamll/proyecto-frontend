@@ -28,6 +28,8 @@ export const CrearCatalogo = () => {
     };
 
     useEffect(() => {
+        const myElement = document.getElementById('layout_pagina');
+        myElement.className = 'layout_inicio';
         fetchUnidadMedidas();
         fetchTipoCatalogos();
         fetchSubcategorias();
@@ -54,82 +56,126 @@ export const CrearCatalogo = () => {
     return (
         <>
             <form onSubmit={crearCatalogo}>
-                <label>Nombre:
-                    <input type="text" name="nombre" onChange={cambiado} />
-                </label>
-                <br />
-                <label>Código interno:
-                    <input type="text" name="codigo_interno" onChange={cambiado} />
-                </label>
-                <br />
-                <label>Código de barras:
-                    <input type="text" name="codigo_de_barras" onChange={cambiado} />
-                </label>
-                <br />
-                <label>Código de provedor:
-                    <input type="text" name="codigo_proveedor" onChange={cambiado} />
-                </label>
-                <br />
-                <label>Descripción:
-                    <input type="text" name="descripcion" onChange={cambiado} />
-                </label>
-                <br />
-                <label>Activo:
-                    <input
-                        type="checkbox"
-                        name="activo"
-                        onChange={(event) => {
-                            cambiado({
-                                target: {
-                                    name: event.target.name,
-                                    value: event.target.checked ? "A" : "I",
-                                },
-                            });
-                        }}
-                        defaultChecked={true}
-                    />
-                </label>
-                <br />
-                <label>
-                    Unidad de medida:
-                    <select name="id_unidad_medida" onChange={cambiado} >
-                        <option value="">Unidad de medida: </option>
-                        {unidadMedidas && unidadMedidas.map((unidadMedida) => (
-                            <option key={unidadMedida.id} value={unidadMedida.id}>
-                                {unidadMedida.id}-{unidadMedida.nombre}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <br />
-                <label>
-                    Tipo de catálogo:
-                    <select name="id_tipo_catalogo" onChange={cambiado} >
-                        <option value="">Tipo de Catalogo: </option>
-                        {tipoCatalogos && tipoCatalogos.map((tipoCatalogo) => (
-                            <option key={tipoCatalogo.id} value={tipoCatalogo.id}>
-                                {tipoCatalogo.id}-{tipoCatalogo.nombre}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <br />
-                <label>
-                    Subcategoria:
-                    <select name="id_subcategoria" onChange={cambiado} >
-                        <option value="">Subcategoria: </option>
-                        {subCategorias && subCategorias.map((subcategoria) => (
-                            <option key={subcategoria.id} value={subcategoria.id}>
-                                {subcategoria.id}-{subcategoria.nombre}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <br />
+                <div className='div_flex_centro'>
+                    <div className='alinea_derecha'>
+                        <div>
+                            <div>
 
-                <br />
-                <button type="submit">Crear catalogo</button>
-                <br />
+                                <label>Nombre:</label>
+                            </div>
+                            <div>
+                                <input type="text" name="nombre" onChange={cambiado} />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+
+                                <label>Código interno:</label>
+                            </div>
+                            <div>
+                                <input type="text" name="codigo_interno" onChange={cambiado} />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+
+                                <label>Código de barras:</label>
+                            </div>
+                            <div>
+                                <input type="text" name="codigo_de_barras" onChange={cambiado} />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+
+                                <label>Código de provedor:</label>
+                            </div>
+                            <div>
+                                <input type="text" name="codigo_proveedor" onChange={cambiado} />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+
+                                <label>Descripción:</label>
+                            </div>
+                            <div>
+                                <input type="text" name="descripcion" onChange={cambiado} />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+
+                                <label>Activo:</label>
+                                <input
+                                    type="checkbox"
+                                    name="activo"
+                                    onChange={(event) => {
+                                        cambiado({
+                                            target: {
+                                                name: event.target.name,
+                                                value: event.target.checked ? "A" : "I",
+                                            },
+                                        });
+                                    }}
+                                    defaultChecked={true}
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+
+                                <label>Unidad de medida:</label>
+                            </div>
+
+                            <div>
+                                <select name="id_unidad_medida" onChange={cambiado} >
+                                    <option value="">Unidad de medida: </option>
+                                    {unidadMedidas && unidadMedidas.map((unidadMedida) => (
+                                        <option key={unidadMedida.id} value={unidadMedida.id}>
+                                            {unidadMedida.id}-{unidadMedida.nombre}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label>Tipo de catálogo:</label>
+                            </div>
+                            <div>
+                                <select name="id_tipo_catalogo" onChange={cambiado} >
+                                    <option value="">Tipo de Catalogo: </option>
+                                    {tipoCatalogos && tipoCatalogos.map((tipoCatalogo) => (
+                                        <option key={tipoCatalogo.id} value={tipoCatalogo.id}>
+                                            {tipoCatalogo.id}-{tipoCatalogo.nombre}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+
+                                <label>Subcategoria:</label>
+                            </div>
+                            <div>
+                                <select name="id_subcategoria" onChange={cambiado} >
+                                    <option value="">Subcategoria: </option>
+                                    {subCategorias && subCategorias.map((subcategoria) => (
+                                        <option key={subcategoria.id} value={subcategoria.id}>
+                                            {subcategoria.id}-{subcategoria.nombre}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit">Crear catalogo</button>
+                </div>
+
             </form>
             {resultado !== 'No enviado' && (
                 <>

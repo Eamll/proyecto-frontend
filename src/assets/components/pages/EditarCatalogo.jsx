@@ -22,6 +22,8 @@ export const EditarCatalogo = () => {
     const params = useParams();
 
     useEffect(() => {
+        const myElement = document.getElementById('layout_pagina');
+        myElement.className = 'layout_inicio';
         conseguirCatalogo();
         fetchUnidadMedidas();
         fetchTipoCatalogos();

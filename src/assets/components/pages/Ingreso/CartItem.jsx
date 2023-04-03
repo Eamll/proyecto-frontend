@@ -29,7 +29,6 @@ export const CartItem = ({ catalogo, updateCartItem, handleRemoveFromCart }) => 
                         <label htmlFor="costo_unitario">Costo Unitario:</label>
                     </div>
                 </div>
-
                 <div>
                     <div>
                         <input
@@ -52,7 +51,7 @@ export const CartItem = ({ catalogo, updateCartItem, handleRemoveFromCart }) => 
                     </div>
                 </div>
                 <div>
-                    <button onClick={handleRemoveClick}>X</button>
+                    <button className="boton_cart_item" onClick={handleRemoveClick}>X</button>
                 </div>
             </div>
         </div>

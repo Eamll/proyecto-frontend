@@ -24,6 +24,8 @@ export const MaestroIngreso = ({ searchQuery }) => {
     /* ----------*/
 
     useEffect(() => {
+        const myElement = document.getElementById('layout_pagina');
+        myElement.className = 'layout';
         fetchCatalogos();
         fetchAlmacenes();
         fetchConceptosIngreso();
@@ -191,84 +193,13 @@ export const MaestroIngreso = ({ searchQuery }) => {
                     (<><div className="maestro-ingreso">
                         <ListadoAIngresar catalogos={filteredCatalogos} onAddToCart={handleAddToCart} />
                     </div>
-                        <div className="div_full_width">
                             <h2>Artículos del Carrito</h2>
+                        <div className="div_full_width maestro-ingreso">
                             {cart.map((item) => (
                                 <CartItem key={item.id} catalogo={item} updateCartItem={updateCartItem} handleRemoveFromCart={handleRemoveFromCart} />
                             ))}
 
-                            <form onSubmit={handleSubmit}>
-
-                                Concepto Ingreso:<br />
-                                <select
-                                    name="id_concepto_ingreso"
-                                    value={formulario.id_concepto_ingreso}
-                                    onChange={cambiado}
-                                    required
-                                >
-                                    {conceptosIngreso.map((concepto_ingreso) => (
-                                        <option key={concepto_ingreso.id} value={concepto_ingreso.id}>
-                                            {concepto_ingreso.nombre}
-                                        </option>
-                                    ))}
-                                </select>
-
-                                <br />
-                                <input
-                                    type="number"
-                                    name="costo_transporte"
-                                    value={formulario.costo_transporte}
-                                    onChange={cambiado}
-                                    placeholder="Costo Transporte"
-                                    required
-                                    onWheel={handleWheel}
-                                />
-                                <br />
-
-                                <input
-                                    type="number"
-                                    name="costo_carga"
-                                    value={formulario.costo_carga}
-                                    onChange={cambiado}
-                                    placeholder="Costo Carga"
-                                    required
-                                    onWheel={handleWheel}
-                                />
-                                <br />
-
-                                <input
-                                    type="number"
-                                    name="costo_almacenes"
-                                    value={formulario.costo_almacenes}
-                                    onChange={cambiado}
-                                    placeholder="Costo Almacenes"
-                                    required
-                                    onWheel={handleWheel}
-                                />
-                                <br />
-
-                                <input
-                                    type="number"
-                                    name="otros_costos"
-                                    value={formulario.otros_costos}
-                                    onChange={cambiado}
-                                    placeholder="Otros Costos"
-                                    required
-                                    onWheel={handleWheel}
-
-                                />
-                                <br />
-
-                                <textarea
-                                    name="observaciones"
-                                    value={formulario.observaciones}
-                                    onChange={cambiado}
-                                    placeholder="Observaciones"
-                                    required
-                                />
-                                <br />
-                                <button type="submit">Submit</button>
-                            </form>
+                            
                             {resultado !== 'No enviado' && (
                                 <>
                                     <br />
@@ -276,7 +207,78 @@ export const MaestroIngreso = ({ searchQuery }) => {
                                 </>
                             )}
                         </div>
+                        <form onSubmit={handleSubmit}>
 
+Concepto Ingreso:<br />
+<select
+    name="id_concepto_ingreso"
+    value={formulario.id_concepto_ingreso}
+    onChange={cambiado}
+    required
+>
+    {conceptosIngreso.map((concepto_ingreso) => (
+        <option key={concepto_ingreso.id} value={concepto_ingreso.id}>
+            {concepto_ingreso.nombre}
+        </option>
+    ))}
+</select>
+
+<br />
+<input
+    type="number"
+    name="costo_transporte"
+    value={formulario.costo_transporte}
+    onChange={cambiado}
+    placeholder="Costo Transporte"
+    required
+    onWheel={handleWheel}
+/>
+<br />
+
+<input
+    type="number"
+    name="costo_carga"
+    value={formulario.costo_carga}
+    onChange={cambiado}
+    placeholder="Costo Carga"
+    required
+    onWheel={handleWheel}
+/>
+<br />
+
+<input
+    type="number"
+    name="costo_almacenes"
+    value={formulario.costo_almacenes}
+    onChange={cambiado}
+    placeholder="Costo Almacenes"
+    required
+    onWheel={handleWheel}
+/>
+<br />
+
+<input
+    type="number"
+    name="otros_costos"
+    value={formulario.otros_costos}
+    onChange={cambiado}
+    placeholder="Otros Costos"
+    required
+    onWheel={handleWheel}
+
+/>
+<br />
+
+<textarea
+    name="observaciones"
+    value={formulario.observaciones}
+    onChange={cambiado}
+    placeholder="Observaciones"
+    required
+/>
+<br />
+<button type="submit">Submit</button>
+</form>
                     </>) :
                     <h1>No hay productos</h1>
             }

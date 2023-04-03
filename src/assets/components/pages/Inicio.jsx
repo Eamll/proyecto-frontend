@@ -5,6 +5,7 @@ import { CrearCatalogo } from './CrearCatalogo'
 
 
 export const Inicio = () => {
+
     return (
         <div>
             <CrearCatalogo />
